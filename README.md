@@ -39,30 +39,80 @@ Before running program is required to configure following fields:
 
 1. Google Sheets Spreadsheet ID: Replace the placeholder in the SPREADSHEET_ID constant with your Google Sheets spreadsheet ID. This ID is found in the URL of your spreadsheet.
    
-```console
+```javascript
 const SPREADSHEET_ID = 'SPREADSHEET_ID';
 ```
 
 2. Target Sheet Name: Replace the placeholder in the TARGET_SHEET_NAME constant with the name of the target sheet which you want to update with your JS file
    
-```console
+```javascript
 const TARGET_SHEET_NAME = 'TARGET_SHEET_NAME';
 ```
 
 3. Service Account File: Ensure the service account file is in the root directory of your project. In the SERVICE_ACCOUNT_NAME enter your service account file name (ex. 'service_account.json')
    
-```console
+```javascript
 const SERVICE_ACCOUNT_NAME = 'service_account.json';
 ```
 
 4.Source File: Specify the source file that will be used to update the Google Sheet. Replace variable with your source file's name. (ex. 'source.js')
 
-```console
+```javascript
 const SOURCE_FILE = 'source.js';
 ```
 
 5. Update Interval: Set the update interval in milliseconds. The default is 120000 milliseconds (120 seconds).
 
-```console
+```javascript
 const UPDATE_INTERVAL_MS = 120000;
 ```
+
+## Running the program
+
+Ensure your source file contains valid JavaScript code that exports an array of data. For example:
+
+```console
+[
+  {
+    Name: Max,
+    LastName: Verstappen,
+    Age: 26,
+    Nationality: Dutch
+  },
+  {
+    Name: Lewis,
+    LastName: Hamilton,
+    Age: 39,
+    Nationality: British
+  },
+  {
+    Name: Charles,
+    LastName: Leclerc,
+    Age: 26,
+    Nationality: Monegasque
+  }
+]
+```
+Amount of fields is not limited. Main requirement is to keep the following structure.
+
+Make sure that you are in a root folder of a project in terminal. Run the program in terminal using Node.js:
+
+```console
+node script.js
+```
+
+To stop the program you can use command Ctrl + C (while you are in a terminal)
+
+## Troubleshooting
+
+If you encounter any issues, check the following:
+
+## Troubleshooting
+
+If you encounter any issues, check the following:
+
+1. Verify that the `SPREADSHEET_ID`, `TARGET_SHEET_NAME`, `SERVICE_ACCOUNT_NAME`, and `SOURCE_FILE` are correctly specified.
+2. Ensure your source file exports valid data.
+3. Confirm that your service account has the necessary permissions to access and update the Google Sheets document.
+4. Check the console output for any error messages that might help in diagnosing the problem.
+
