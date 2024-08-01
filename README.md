@@ -19,7 +19,7 @@ Additionally, you will need to set up Google APIs:
      - Navigate to "APIs & Services" > "Credentials".
      - Click "Create Credentials" and select "Service Account".
      - Follow the prompts to create the service account.
-     - Download the JSON file with your service account credentials and save it in the root directory of your project. It is highly recommended to rename it something short like 'service_account.json'
+     - Download the JSON file with your service account credentials and save it in the root directory of your project. It is highly recommended to rename it in something short like 'service_account.json'
 
 ## Installation
 
@@ -29,4 +29,40 @@ Additionally, you will need to set up Google APIs:
 
 3. Install the required dependencies by running:
    
-   npm install googleapis
+```console
+npm install googleapis
+```
+
+## Configuration
+
+Before running program is required to configure following fields:
+
+1. Google Sheets Spreadsheet ID: Replace the placeholder in the SPREADSHEET_ID constant with your Google Sheets spreadsheet ID. This ID is found in the URL of your spreadsheet.
+   
+```console
+const SPREADSHEET_ID = 'SPREADSHEET_ID';
+```
+
+2. Target Sheet Name: Replace the placeholder in the TARGET_SHEET_NAME constant with the name of the target sheet which you want to update with your JS file
+   
+```console
+const TARGET_SHEET_NAME = 'TARGET_SHEET_NAME';
+```
+
+3. Service Account File: Ensure the service account file is in the root directory of your project. In the SERVICE_ACCOUNT_NAME enter your service account file name (ex. 'service_account.json')
+   
+```console
+const SERVICE_ACCOUNT_NAME = 'service_account.json';
+```
+
+4.Source File: Specify the source file that will be used to update the Google Sheet. Replace variable with your source file's name. (ex. 'source.js')
+
+```console
+const SOURCE_FILE = 'source.js';
+```
+
+5. Update Interval: Set the update interval in milliseconds. The default is 120000 milliseconds (120 seconds).
+
+```console
+const UPDATE_INTERVAL_MS = 120000;
+```
