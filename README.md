@@ -74,22 +74,22 @@ Ensure your source file contains valid JavaScript code that exports an array of 
 ```console
 [
   {
-    Name: Max,
-    LastName: Verstappen,
-    Age: 26,
-    Nationality: Dutch
+    Name: 'Max',
+    LastName: 'Verstappen',
+    Age: '26',
+    Nationality: 'Dutch'
   },
   {
-    Name: Lewis,
-    LastName: Hamilton,
-    Age: 39,
-    Nationality: British
+    Name: 'Lewis',
+    LastName: 'Hamilton',
+    Age: '39',
+    Nationality: 'British'
   },
   {
-    Name: Charles,
-    LastName: Leclerc,
-    Age: 26,
-    Nationality: Monegasque
+    Name: 'Charles',
+    LastName: 'Leclerc',
+    Age: '26',
+    Nationality: 'Monegasque'
   }
 ]
 ```
