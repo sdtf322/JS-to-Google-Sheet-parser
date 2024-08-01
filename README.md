@@ -107,10 +107,6 @@ To stop the program you can use command Ctrl + C (while you are in a terminal)
 
 If you encounter any issues, check the following:
 
-## Troubleshooting
-
-If you encounter any issues, check the following:
-
 1. Verify that the `SPREADSHEET_ID`, `TARGET_SHEET_NAME`, `SERVICE_ACCOUNT_NAME`, and `SOURCE_FILE` are correctly specified.
 2. Ensure your source file exports valid data.
 3. Confirm that your service account has the necessary permissions to access and update the Google Sheets document.
