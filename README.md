@@ -23,7 +23,7 @@ Additionally, you will need to set up Google APIs:
 
 ## Installation
 
-1. Clone this repository to your local machine or download the source code. Place the program in a folder with your source file and service account file with credentials.
+1. Clone this repository to your local machine or download the source code. Create a directory with your source file, service account file with credentials and downloaded program (script.js file).
 
 2. Open a terminal and navigate to the project directory.
 
