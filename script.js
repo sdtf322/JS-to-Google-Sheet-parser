@@ -7,7 +7,7 @@ const vm = require('vm');
 // Google Sheets spreadsheet ID (found in the URL of your spreadsheet)
 const SPREADSHEET_ID = ''; // Change this to your spreadsheet ID
 
-// Name of the target sheet within the spreadsheet (ex. 'Sheet1š)
+// Name of the target sheet within the spreadsheet (ex. 'Sheet1')
 const TARGET_SHEET_NAME = ''; // Change this to your target sheet name
 
 // Service account file (ex. 'service_account.json')
