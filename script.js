@@ -7,10 +7,10 @@ const vm = require('vm');
 // Google Sheets spreadsheet ID (found in the URL of your spreadsheet)
 const SPREADSHEET_ID = ''; // Change this to your spreadsheet ID
 
-// Name of the target sheet within the spreadsheet (ex. Sheet1)
+// Name of the target sheet within the spreadsheet (ex. 'Sheet1š)
 const TARGET_SHEET_NAME = ''; // Change this to your target sheet name
 
-// Service account file (ex. 'client_secret.json')
+// Service account file (ex. 'service_account.json')
 const SERVICE_ACCOUNT_NAME = '' // Change this to service account json file
 
 // Source file which will be used to update Google Sheet (ex. 'source.js')
@@ -27,24 +27,44 @@ const auth = new google.auth.GoogleAuth({
 });
 const sheets = google.sheets({ version: 'v4', auth });
 
+async function loadSourceData(filePath) {
+  const sourceCode = fs.readFileSync(filePath, 'utf8');
+  const script = new vm.Script(`source = ${sourceCode}`);
+  const context = vm.createContext({});
+  script.runInContext(context);
+  return context.source;
+}
+
+async function clearSheet(authClient, spreadsheetId, sheetName) {
+  await sheets.spreadsheets.values.clear({
+    spreadsheetId,
+    range: sheetName,
+    auth: authClient,
+  });
+}
+
+async function updateSheet(authClient, spreadsheetId, sheetName, data) {
+  const resource = { values: data.map(Object.values) };
+  await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: sheetName,
+    valueInputOption: 'RAW',
+    resource,
+    auth: authClient,
+  });
+}
+
 async function overwriteSheet() {
   try {
-    // Dynamically load and parse source file to get the latest data which we will use to update sheet
     const sourcePath = path.join(__dirname, SOURCE_FILE);
-    const sourceCode = fs.readFileSync(sourcePath, 'utf8');
-    const script = new vm.Script(`source = ${sourceCode}`);
-    const context = vm.createContext({});
-    script.runInContext(context);
-    const sourceData = context.source;
+    const sourceData = await loadSourceData(sourcePath);
 
     if (!sourceData || !Array.isArray(sourceData) || sourceData.length === 0) {
       throw new Error('Source data is not properly loaded or is empty');
     }
 
-    // Get authenticated client
+    //Retrieving a sheet which will be modified with source file
     const authClient = await auth.getClient();
-
-    // Get metadata about the spreadsheet and find required sheet to edit
     const sheetInfo = await sheets.spreadsheets.get({
       auth: authClient,
       spreadsheetId: SPREADSHEET_ID,
@@ -53,26 +73,9 @@ async function overwriteSheet() {
     if (!sheet) {
       throw new Error(`Sheet with name "${TARGET_SHEET_NAME}" not found`);
     }
-    // Prepare the data which will be used to update sheet
-    const resource = { values: sourceData.map(Object.values) };
 
-    const range = `${TARGET_SHEET_NAME}!A1`;
-
-    // Clear the sheet
-    await sheets.spreadsheets.values.clear({
-      spreadsheetId: SPREADSHEET_ID,
-      range: `${TARGET_SHEET_NAME}`,
-      auth: authClient,
-    });
-
-    // Update the sheet with new data
-    await sheets.spreadsheets.values.update({
-      spreadsheetId: SPREADSHEET_ID,
-      range: range,
-      valueInputOption: 'RAW',
-      resource: resource,
-      auth: authClient,
-    });
+    await clearSheet(authClient, SPREADSHEET_ID, TARGET_SHEET_NAME);
+    await updateSheet(authClient, SPREADSHEET_ID, TARGET_SHEET_NAME, sourceData);
 
     console.log('Sheet overwritten successfully');
   } catch (error) {
