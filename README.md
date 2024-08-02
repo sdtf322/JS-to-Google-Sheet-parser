@@ -7,7 +7,7 @@ This program allows you to parse a JS file with your data and overwrite a specif
 Before you can run this program, ensure you have the following installed and configured on your system:
 
 1. **Node.js**: Download and install the latest version of Node.js from [Node.js official website](https://nodejs.org/).
-2. **Visual Studio Code (VS Code)**: Download and install VS Code from [Visual Studio Code official website](https://code.visualstudio.com/).
+2. **Code Editor**: You can use any code editor. For example: VS Code [Visual Studio Code official website](https://code.visualstudio.com/).
 
 Additionally, you will need to set up Google APIs:
 
